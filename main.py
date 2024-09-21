@@ -1,16 +1,45 @@
-# This is a sample Python script.
+import cv2
 
-# Press ⇧⌘⏎ to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
+# File paths
+small_image_path = '/Users/jordantaylor/computer_imaging/Objects/sailboat.png'
+large_image_path = '/Users/jordantaylor/computer_imaging/Images/kotor_small.png'
 
+# Load the images
+small_image = cv2.imread(small_image_path)
+large_image = cv2.imread(large_image_path)
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
-chant
+# Convert images to grayscale for better matching performance
+small_image_gray = cv2.cvtColor(small_image, cv2.COLOR_BGR2GRAY)
+large_image_gray = cv2.cvtColor(large_image, cv2.COLOR_BGR2GRAY)
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+# Initialize the ORB detector
+orb = cv2.ORB_create()
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+# Find keypoints and descriptors with ORB for both images
+kp1, des1 = orb.detectAndCompute(small_image_gray, None)
+kp2, des2 = orb.detectAndCompute(large_image_gray, None)
+
+# Create BFMatcher object
+bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
+
+# Match descriptors
+matches = bf.match(des1, des2)
+
+# Sort them in the order of their distance (lower distance is better)
+matches = sorted(matches, key=lambda x: x.distance)
+
+# Set a threshold for match distance
+distance_threshold = 60  # Adjust this value as needed (lower value for stricter matching)
+
+# Filter out the matches with distance greater than the threshold
+good_matches = [m for m in matches if m.distance < distance_threshold]
+
+# Draw only the good matches
+img_matches = cv2.drawMatches(small_image, kp1, large_image, kp2, good_matches, None, flags=cv2.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS)
+
+# Display the image with OpenCV
+cv2.imshow('Good Matches (Filtered by Threshold)', img_matches)
+
+# Wait for a key press and close the image window
+cv2.waitKey(0)
+cv2.destroyAllWindows()
