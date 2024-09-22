@@ -10,3 +10,12 @@ This project demonstrates how to use OpenCV's ORB (Oriented FAST and Rotated BRI
 To install OpenCV, run:
 ```bash
 pip install opencv-python
+```
+
+
+## Literature Review:
+
+Satellite imaging API: https://docs.sentinel-hub.com/api/latest/data/
+Dima Model: https://huggingface.co/dima806
+Mahandih Model: https://huggingface.co/Mahadih534/yolov8_ship_det_satellite/tree/main
+
