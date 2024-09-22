@@ -1,15 +1,19 @@
 from ultralytics import YOLO
 import cv2
+import os
 
-# Load the YOLOv8 model (ship detection model)
-model = YOLO("/Users/jordantaylor/computer_imaging/models/ship.pt")
+model_path = os.path.join(os.getcwd(), "models", "ship.pt")
+image_path = os.path.join(os.getcwd(), "images", "singapore_jurong.png")
+output_path = os.path.join(os.getcwd(), "output", "output_yolo_mahadih.jpg")
+
+# Load the YOLO model
+model = YOLO(model_path)
 
 # Load an image for ship detection (replace with your image path)
-image_path = "/Users/jordantaylor/computer_imaging/images/kotor_large.png"
 image = cv2.imread(image_path)
 
-# Run inference on the image
-results = model(image)
+# Run inference on the image with a lower confidence threshold (e.g., 0.3)
+results = model(image, conf=0.05)  # Lowering confidence threshold
 
 # Print detected boxes and their corresponding information
 for result in results:
@@ -22,4 +26,4 @@ for result in results:
     result.show()
 
 # Save the result image with bounding boxes
-results[0].save("output_image.jpg")
+results[0].save(output_path)
