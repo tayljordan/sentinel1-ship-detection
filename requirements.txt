@@ -1,2 +1,7 @@
 opencv-python==4.10.0.84
 ultralytics==8.2.98
+
+huggingface_hub==0.25.0
+safetensors==0.4.5
+tokenizers==0.19.1
+transformers==4.44.2
