@@ -118,9 +118,6 @@ Imagery: contains modified Copernicus Sentinel data (2026), processed by the Cop
 
 ## License
 
-Copyright 2026 Project Harrison.
-
-- **Code:** the Python package and scripts are released under the [Apache License 2.0](LICENSE).
-- **Documentation and examples:** the README, the example images, the explainer page and the sample detection files are released under the [Creative Commons Attribution 4.0 International license (CC BY 4.0)](LICENSE-DOCS). Reuse is permitted for any purpose, including commercial use, provided Project Harrison is credited.
+No copyright is claimed. The code, scripts, documentation, example images, explainer page and sample detection files in this repository are dedicated to the public domain under [CC0 1.0 Universal](LICENSE). Anyone may copy, modify and use the repository contents for any purpose, including commercial use, without asking permission or giving credit.
 
 The Ai2 models downloaded by `scripts/setup_models.sh` remain under Ai2's own Apache-2.0 license, and the Copernicus Sentinel imagery remains under the [Copernicus data terms](https://sentinels.copernicus.eu/documents/247904/690755/Sentinel_Data_Legal_Notice), which permit free use with attribution.
