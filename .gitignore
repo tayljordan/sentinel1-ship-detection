@@ -1,0 +1,16 @@
+# Credentials
+.env
+
+# Environment
+.venv/
+__pycache__/
+*.pyc
+
+# Downloaded models and generated data
+third_party/
+output/
+
+# Editors and OS
+.idea/
+.vscode/
+.DS_Store
