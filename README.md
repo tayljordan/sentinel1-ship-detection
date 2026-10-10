@@ -6,7 +6,7 @@
 
 # Sentinel-1 Ship Detection
 
-This tool detects vessels in Sentinel-1 synthetic aperture radar (SAR) imagery. Given a bounding box, the pipeline downloads the most recent Sentinel-1 pass from the Copernicus Data Space Ecosystem, runs a pretrained vessel detector over the scene, and writes each detected ship to CSV and GeoJSON with estimated length, width, heading and speed.
+`sentinel1_ship_detection` detects vessels in Sentinel-1 synthetic aperture radar (SAR) imagery. Given a bounding box, the pipeline downloads the most recent Sentinel-1 pass from the Copernicus Data Space Ecosystem, runs a pretrained vessel detector over the scene, and writes each detected ship to CSV and GeoJSON with estimated length, width, heading and speed.
 
 ![Detected vessels in the Singapore Strait, 9 October 2026](examples/singapore-2026-10-09/ships.jpg)
 
@@ -80,13 +80,13 @@ Sample outputs from the Singapore run are in [`examples/singapore-2026-10-09/`](
 
 The detections have not yet been validated against AIS. So far, results have been checked visually on a single scene: of 665 very bright targets on open water, 591 had a detection within 140 m, and most of the misses were sidelobe glare or piers.
 
-The model's authors use a confidence threshold of 0.9, but on this imagery the brightest ships score between 0.5 and 0.9, so the default here is 0.5.
+The model's authors use a confidence threshold of 0.9, but on the Singapore Sentinel-1 scene the brightest ships score between 0.5 and 0.9, so the default `--conf` value in sentinel1_ship_detection is 0.5.
 
-The land mask also removes ships at berth. Pass `--keep-land` to retain them.
+The land mask also removes ships at berth. Pass `--keep-land` to retain ships at berth.
 
 Length and speed estimates look plausible. Heading estimates appear biased and should be treated as rough.
 
-The detector supports using one or two earlier passes to suppress fixed structures such as beacons, but this pipeline currently uses only the current scene.
+The detector supports using one or two earlier passes to suppress fixed structures such as beacons, but sentinel1_ship_detection currently uses only the newest scene.
 
 At 10 m resolution, vessels shorter than about 40 m are rarely detected.
 
@@ -104,7 +104,7 @@ examples/          sample outputs and the interactive explainer
 
 ## Attribution
 
-The detection and attribute models, and the inference code this package uses to run them, come from the Allen Institute for AI.
+The detection model, the attribute model, and the inference code that sentinel1_ship_detection uses to run both models come from the Allen Institute for AI.
 
 - **Models:** Sentinel-1 vessel detector (Faster R-CNN, checkpoint `frcnn_cmp2/3dff445`) and vessel attribute model (ResNet-50, checkpoint `attr/c34aa37`)
 - **Authors:** Patrick Beukema, Favyen Bastani, Piper Wolters, Henry Herzog, Joe Ferdinando
